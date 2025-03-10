@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%-include('partials/head') %>
+    <title>Home</title>
+  </head>
+  <body>
+    <%-include('partials/header') %>
+    <div class="container flex flex-wrap mt-3">
+      <% locals.blogs.map(item=>{%>
+      <div class="card" style="width: 18rem">
+        <img src="<%= item.coverImageUrl %>" class="card-img-top" alt="..." />
+        <div class="card-body">
+          <h5 class="card-title"><%= item.title %></h5>
+          <p class="card-text"><%= item.body %></p>
+          <a href="/blog/<%= item._id %>" class="btn btn-primary"
+            >Go somewhere</a
+          >
+        </div>
+      </div>
+      <% }) %>
+    </div>
+
+    <%-include('partials/script') %>
+  </body>
+</html>
