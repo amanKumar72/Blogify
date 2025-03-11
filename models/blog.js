@@ -12,9 +12,7 @@ const blogSchema = new Schema(
     },
     coverImageUrl: {
       type: String,
-      default:
-        "https://ik.imagekit.io/vjweud5o2/blogify/defaultProfile.png?updatedAt=1740652309543",
-    },
+      },
     createdBy: {
       type: Schema.Types.ObjectId,
       ref: "user",
