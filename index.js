@@ -7,6 +7,7 @@ const cookieParser=require('cookie-parser')
 const authRouter = require("./routes/auth");
 const staticRouter = require("./routes/staticRoutes");
 const blogRouter=require("./routes/blog")
+const userRouter=require("./routes/user")
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -32,7 +33,8 @@ connect(process.env.MONGO_URL)
 
 
   app.use("/api/auth", authRouter);
-  app.use("/", staticRouter);
   app.use("/api/blog",blogRouter)
+  app.use("/api/user",userRouter)
+  app.use("/", staticRouter);
 
 app.listen(PORT, () => console.log(`Server is listening on port ${PORT}`));

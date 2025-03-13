@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include('partials/head') %>
-    <title>SignUp</title>
+    <title>Edit Profile</title>
   </head>
   <body>
     <%-include('partials/header') %>
@@ -12,7 +12,7 @@
           <%= error %>
         </div>
       <% } %> 
-        <form action="/api/auth/signup" method="post" enctype="multipart/form-data">
+        <form action="/api/user/editProfile" method="post" enctype="multipart/form-data">
       <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input
@@ -20,7 +20,8 @@
           type="name"
           class="form-control"
           name="name"
-          id="name"  
+          id="name" 
+          value='<%=req.user.name%>'  
         />
         <label for="email" class="form-label">Email address</label>
         <input
@@ -29,18 +30,8 @@
           class="form-control"
           name="email"
           id="email"
+          value=<%=req.user.email%>  
         />
-      </div>
-      <div class="mb-3">
-        <label for="password" class="form-label">Password</label>
-        <input
-        required
-          type="password"
-          class="form-control"
-          name="password"
-          id="password"
-        />
-      </div>
       <div class="mb-3">
         <label for="file" class="form-label">Profile Picture</label>
         <input
@@ -48,12 +39,11 @@
           class="form-control"
           name="file"
           id="file"
-          required  
+          required
         />
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    <p>Already have an account? <a href="/signin">Sign in</a></p>
     </div>
 
     <%-include('partials/script') %>

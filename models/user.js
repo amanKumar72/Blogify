@@ -28,7 +28,7 @@ const userSchema = new Schema(
     profileUrl: {
       type: String,
       default:
-        "https://ik.imagekit.io/vjweud5o2/blogify/defaultProfile.png?updatedAt=1740652309543",
+        "p1.png",
     },
   },
   { timestamps: true }

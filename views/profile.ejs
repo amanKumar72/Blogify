@@ -6,19 +6,21 @@
   </head>
   <body>
     <%-include('partials/header') %>
-    <div class="container d-flex flex-column align-items-center ">
+    <div class="container d-flex flex-column align-items-center">
       <div class="mb-3 mt-3">
         <img
           src="/uploads/<%= req.user.profileUrl %>"
           alt="Profile Image"
           class="img-fluid rounded-circle"
-          style="object-fit: cover"
+          style="object-fit: cover; width: 250px; height: 250px"
           loading="lazy"
         />
         <div class="col">
           <h1><%= req.user.name %></h1>
           <p><%= req.user.email %></p>
-          <a href="/editProfile" class="text-white text-decoration-none"><button class="btn btn-primary w-100">Edit</button></a>
+          <a href="/editProfile" class="text-white text-decoration-none"
+            ><button class="btn btn-primary w-100">Edit</button></a
+          >
         </div>
       </div>
       <div class="container flex flex-wrap mt-3">
@@ -34,14 +36,24 @@
                 height="250px"
                 style="object-fit: contain"
               />
-              <div class="card-body">
+              <div class="card-body ">
                 <h5 class="card-title"><%= item.title %></h5>
-                <p class="card-text"><%= item.body.length>50?item.body.substring(1,50)+".....":item.body %></p>
-                <a href="/blog/<%=item._id %>" class="btn btn-primary"
-                  >See Blog</a
-                >
-                <a href="/edit/<%=item._id %>" class="btn btn-primary">Edit</a>
-                <a href="/api/blog/delete/<%=item._id %>" class="btn btn-primary">Delete</a>
+                <p class="card-text">
+                  <%=
+                  item.body.length>50?item.body.substring(1,50)+".....":item.body
+                  %>
+                </p>
+                <div class="links d-flex justify-content-between" >
+                  <a href="/blog/<%=item._id %>" class="btn btn-primary"
+                    >See Blog</a
+                  >
+                  <a href="/editBlog/<%=item._id %>" class="btn btn-primary"
+                    >Edit</a
+                  >
+                  <form action="/api/blog/delete/<%=item._id %>" method="post">
+                    <button type="submit" class="btn btn-primary">Delete</button>
+                  </form>
+                </div>
               </div>
             </div>
           </div>

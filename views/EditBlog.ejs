@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <%-include('partials/head')  %> 
-    <title>Add Blog</title>
+    <title>Edit Blog</title>
   </head>
   <body>
     <%-include('partials/header')  %> 
@@ -12,14 +12,14 @@
           <%= error %>
         </div>
       <% } %> 
-    <form action="/api/blog/add" method="post" enctype="multipart/form-data">
+    <form action="/api/blog/edit/<%=blog._id%>" method="post" enctype="multipart/form-data">
         <div class="mb-3" > 
           <label for="title" class="form-label">Title</label>
-          <input type="text" class="form-control" id="title" name="title" aria-describedby="emailHelp" required>
+          <input type="text" value="<%=blog.title%>"class="form-control" id="title" name="title" aria-describedby="emailHelp" required>
         </div>
         <div class="mb-3">
             <label for="body" class="form-label">Body</label>
-            <textarea class="form-control" placeholder="Leave a comment here" id="body" name="content" required  style="height: 200px"></textarea>
+            <textarea class="form-control"  placeholder="Leave a comment here" id="body" name="content" required  style="height: 200px"><%=blog.body%></textarea>
           </div>
         <div class="mb-3">
           <label for="coverImageUrl" class="form-label">Cover Image</label>

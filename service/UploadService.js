@@ -2,8 +2,14 @@ const fs = require("fs");
 const multer = require("multer");
 const path = require("path");
 
-if (!fs.existsSync("uploads")) {
-  fs.mkdirSync("uploads");
+if (!fs.existsSync("public/uploads")) {
+  fs.mkdirSync("public/uploads");
+}
+
+function removeImage(url){
+  if(fs.existsSync("public/uploads/"+url)){
+    fs.unlinkSync("public/uploads/"+url)
+  }
 }
 
 //apply filter for onlu images 
@@ -30,4 +36,4 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage,fileFilter });
 
-module.exports = upload;
+module.exports = {upload,removeImage};

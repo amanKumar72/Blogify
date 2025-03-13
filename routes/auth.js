@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const { generateToken } = require("../service/JWTService");
-const upload = require("../service/UploadService");
+const {upload} = require("../service/UploadService");
 
 const router = require("express").Router();
 const jwt = require("jsonwebtoken");
@@ -23,7 +23,7 @@ router.post("/signup", async (req, res) => {
         name,
         email,
         password,
-        profileUrl: req.file?.filename || "p1.png",
+        profileUrl: req.file?.filename ,
       });
       const token = generateToken({
         email,
