@@ -2,4 +2,32 @@
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
-    ></script>
+    >
+  
+  </script>
+
+  <script>
+  
+    const logoutBtn = document.getElementById("logoutBtn");
+        const logoutOverlay = document.getElementById("logoutOverlay");
+        const confirmLogout = document.getElementById("confirmLogout");
+        const cancelLogout = document.getElementById("cancelLogout");
+  
+        logoutBtn.addEventListener("click", function (e) { console.log("logout")
+          e.preventDefault();
+          logoutOverlay.style.display = "flex";
+        });
+  
+        confirmLogout.addEventListener("click", function () {
+          window.location.href = "/api/auth/logout";
+        });
+  
+        cancelLogout.addEventListener("click", function () {
+          logoutOverlay.style.display = "none";
+        });
+  
+        logoutOverlay.addEventListener("click", function (e) {
+          if (e.target === logoutOverlay) {
+            logoutOverlay.style.display = "none";
+          }
+        });</script>
