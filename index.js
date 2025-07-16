@@ -4,6 +4,10 @@ const path = require("path");
 const { connect } = require("mongoose");
 const cookieParser=require('cookie-parser')
 
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger-output.json');
+
+
 const authRouter = require("./routes/auth");
 const staticRouter = require("./routes/staticRoutes");
 const blogRouter=require("./routes/blog")
@@ -20,6 +24,7 @@ app.use(express.json());
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.resolve("./public")))
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 
 //connecting mongodb

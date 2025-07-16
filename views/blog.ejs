@@ -2,33 +2,120 @@
 <html lang="en">
   <head>
     <%-include('partials/head') %>
-    <title>Home</title>
+    <title>Blogify - <%= blog.title %></title>
+    <meta name="description" content="<%= blog.body.substring(0, 150) %>...">
   </head>
   <body>
     <%-include('partials/header') %>
-    <div class="container">
-      <h1><%=blog.title %></h1>
-      <h3>
-        Created by
-        <img
-          src="/uploads/<%=blog.createdBy.profileUrl %>"
-          alt="Profile Image"
-          class="img-fluid rounded-circle"
-          style="object-fit: cover;height: 30px;width: 30px   ;"
-          loading="lazy"
-        />
-        <i><%=blog.createdBy.name %></i>
-      </h3>
-      <img
-        src="/uploads/<%= blog.coverImageUrl %>"
-        class="card-img-top m-3"
-        alt="Blog Image"
-        width="300px"
-        height="300px"
-        style="object-fit: contain; text-align: center"
-        loading="lazy"
-      />
-      <pre><%=blog.body %> </pre>
+    
+    <div class="container py-3">
+      <div class="row justify-content-center ">
+        <div class="col-12 col-lg-8">
+          <article class="content-wrapper p-4">
+            <!-- Blog Header -->
+            <header class="mb-3">
+              <h1 class="display-6 fs-2 fw-bold text-dark mb-4"><%= blog?.title %></h1>
+              
+              <!-- Author Info -->
+              <div class="d-flex align-items-center mb-2 p-2 mb-lg-4 bg-light rounded-3">
+                <img
+                  src="/uploads/<%= blog?.createdBy?.profileUrl %>"
+                  alt="<%= blog?.createdBy?.name %>"
+                  class="rounded-circle  me-3 shadow-sm"
+                  style="object-fit: cover; height: 50px; width: 50px;"
+                  loading="lazy"
+                />
+                <div class="flex-grow-1">
+                  <h6 class="mb-1 fw-semibold text-dark">
+                    <i class="bi bi-person-circle me-1"></i><%= blog.createdBy.name %>
+                  </h6>
+                  <small class="text-muted">
+                    <i class="bi bi-calendar3 me-1"></i>
+                    Published on <%= new Date(blog.createdAt).toLocaleDateString('en-US', { 
+                      year: 'numeric', 
+                      month: 'long', 
+                      day: 'numeric' 
+                    }) %>
+                  </small>
+                </div>
+              </div>
+            </header>
+
+            <!-- Cover Image -->
+            <div class="mb-3 text-center">
+              <img
+                src="/uploads/<%= blog.coverImageUrl %>"
+                class="img-fluid rounded-3 shadow-lg"
+                alt="<%= blog.title %>"
+                style="max-height: 30rem; width: 100%; object-fit: cover;"
+                loading="lazy"
+              />
+            </div>
+
+            <!-- Blog Content -->
+            <div class="blog-content">
+              <div class="fs-5 lh-lg text-dark" style="text-align: justify; white-space: pre-wrap; font-family: 'Georgia', serif;">
+                <%= blog.body %>
+              </div>
+            </div>
+
+            <!-- Blog Footer -->
+            <footer class="mt-5 pt-4 border-top">
+              <div class="row align-items-center">
+                <div class="col-12 col-md-6 mb-3 mb-md-0">
+                  <div class="d-flex align-items-center">
+                    <img
+                      src="/uploads/<%= blog.createdBy.profileUrl %>"
+                      alt="<%= blog.createdBy.name %>"
+                      class="rounded-circle me-3"
+                      style="object-fit: cover; height: 40px; width: 40px;"
+                      loading="lazy"
+                    />
+                    <div>
+                      <small class="text-muted">Written by</small>
+                      <div class="fw-semibold"><%= blog.createdBy.name %></div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-12 col-md-6 text-md-end">
+                  <a href="/" class="btn btn-outline-primary me-2">
+                    <i class="bi bi-arrow-left me-1"></i>Back to Home
+                  </a>
+                  <% if (locals?.req?.user && locals.req.user._id.toString() === blog.createdBy._id.toString()) { %>
+                    <a href="/editBlog/<%= blog._id %>" class="btn btn-primary">
+                      <i class="bi bi-pencil me-1"></i>Edit Blog
+                    </a>
+                  <% } %>
+                </div>
+              </div>
+            </footer>
+          </article>
+
+          <!-- Related Actions -->
+          <div class="content-wrapper p-4 mt-4">
+            <div class="text-center">
+              <h5 class="mb-3">Enjoyed this post?</h5>
+              <div class="d-flex flex-wrap justify-content-center gap-2">
+                <% if (!locals?.req?.cookies['token']) { %>
+                  <a href="/signup" class="btn btn-primary">
+                    <i class="bi bi-person-plus me-1"></i>Join to Write
+                  </a>
+                  <a href="/signin" class="btn btn-outline-primary">
+                    <i class="bi bi-box-arrow-in-right me-1"></i>Sign In
+                  </a>
+                <% } else { %>
+                  <a href="/addBlog" class="btn btn-primary">
+                    <i class="bi bi-plus-circle me-1"></i>Write Your Own
+                  </a>
+                  <a href="/profile" class="btn btn-outline-primary">
+                    <i class="bi bi-person me-1"></i>View Profile
+                  </a>
+                <% } %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <%-include('partials/script') %>

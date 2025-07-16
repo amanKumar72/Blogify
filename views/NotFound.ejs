@@ -3,52 +3,72 @@
   <head>
     <%-include('partials/head') %>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.9.6/lottie.min.js"></script>
-    <style>
-      .error-container {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-        background-color: #f8f9fa;
-      }
-
-      .error-content {
-        text-align: center;
-      }
-
-      .error-content h1 {
-        font-size: 6rem;
-        font-weight: bold;
-        margin-bottom: 1rem;
-      }
-
-      .error-content p {
-        font-size: 1.5rem;
-        margin-bottom: 2rem;
-      }
-
-      .lottie-animation {
-        max-width: 400px;
-        margin-bottom: 2rem;
-      }
-    </style>
-    <title>404 Not Found</title>
+    <title>Blogify - Page Not Found</title>
   </head>
   <body>
     <%-include('partials/header') %>
-    <div class="container">
-      <div class="error-container">
-        <div class="lottie-animation"></div>
-        <div class="error-content">
-          <h1>404</h1>
-          <p>Oops! <%=error %> </p>
-          <a href="/" class="btn btn-primary">Back to Home</a>
+    
+    <div class="container py-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-6">
+          <div class="content-wrapper p-5 text-center">
+            <!-- Lottie Animation -->
+            <div class="lottie-animation mb-4" style="max-width: 300px; margin: 0 auto;"></div>
+            
+            <!-- Error Content -->
+            <div class="error-content">
+              <h1 class="display-1 fw-bold text-primary mb-3">404</h1>
+              <h2 class="fw-bold text-dark mb-3">Page Not Found</h2>
+              <p class="fs-5 text-muted mb-4">
+                <i class="bi bi-exclamation-circle me-2"></i>
+                <%= error %>
+              </p>
+              
+              <!-- Action Buttons -->
+              <div class="d-flex flex-column flex-sm-row gap-3 justify-content-center">
+                <a href="/" class="btn btn-primary btn-lg px-4">
+                  <i class="bi bi-house-door me-2"></i>Back to Home
+                </a>
+                <button onclick="history.back()" class="btn btn-outline-primary btn-lg px-4">
+                  <i class="bi bi-arrow-left me-2"></i>Go Back
+                </button>
+              </div>
+              
+              <!-- Additional Help -->
+              <div class="mt-5 pt-4 border-top">
+                <h5 class="fw-semibold text-dark mb-3">What can you do?</h5>
+                <div class="row g-3">
+                  <div class="col-12 col-md-4">
+                    <div class="p-3 bg-light rounded-3">
+                      <i class="bi bi-search display-6 text-primary mb-2"></i>
+                      <h6 class="fw-semibold">Search</h6>
+                      <small class="text-muted">Look for what you need</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="p-3 bg-light rounded-3">
+                      <i class="bi bi-journal-text display-6 text-primary mb-2"></i>
+                      <h6 class="fw-semibold">Browse Blogs</h6>
+                      <small class="text-muted">Discover amazing content</small>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <div class="p-3 bg-light rounded-3">
+                      <i class="bi bi-plus-circle display-6 text-primary mb-2"></i>
+                      <h6 class="fw-semibold">Create</h6>
+                      <small class="text-muted">Share your own story</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
     <script>
+      // Lottie Animation
       const animation = lottie.loadAnimation({
         container: document.querySelector(".lottie-animation"),
         renderer: "svg",
@@ -56,7 +76,26 @@
         autoplay: true,
         path: "https://lottie.host/d987597c-7676-4424-8817-7fca6dc1a33e/BVrFXsaeui.json",
       });
+
+      // Add some interactive effects
+      document.addEventListener('DOMContentLoaded', function() {
+        // Add hover effects to help cards
+        const helpCards = document.querySelectorAll('.bg-light');
+        helpCards.forEach(card => {
+          card.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-5px)';
+            this.style.transition = 'all 0.3s ease';
+            this.style.boxShadow = '0 8px 25px rgba(0,0,0,0.1)';
+          });
+          
+          card.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0)';
+            this.style.boxShadow = 'none';
+          });
+        });
+      });
     </script>
+    
     <%-include('partials/script') %>
   </body>
 </html>

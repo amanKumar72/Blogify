@@ -27,8 +27,7 @@ const userSchema = new Schema(
     },
     profileUrl: {
       type: String,
-      default:
-        "p1.png",
+      default: "p1.png",
     },
   },
   { timestamps: true }
@@ -40,8 +39,18 @@ userSchema.static("matchPassword", function (email, password) {
       return false;
     }
     const salt = user.salt;
-    const result=createHmac("sha256", salt).update(password).digest("hex") === user.password
-    return result?{email,userId:user._id,role:user.role,name:user.name,profileUrl:user.profileUrl}:false;
+    const result =
+      createHmac("sha256", salt).update(password).digest("hex") ===
+      user.password;
+    return result
+      ? {
+          email,
+          userId: user._id,
+          role: user.role,
+          name: user.name,
+          profileUrl: user.profileUrl,
+        }
+      : false;
   });
 });
 

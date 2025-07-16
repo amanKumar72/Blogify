@@ -2,40 +2,122 @@
 <html lang="en">
   <head>
     <%-include('partials/head') %>
-    <title>Signin</title>
+    <title>Blogify - Sign In</title>
   </head>
   <body>
     <%-include('partials/header') %>
-    <div class="container ">
-      <% if (error) { %>
-        <div class="alert alert-danger" role="alert">
-          <%= error %>
+    
+    <div class="container py-4 py-md-5">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-8 col-lg-5">
+          <div class="content-wrapper p-3 p-md-5">
+            <div class="text-center mb-3">
+              <i class="bi bi-box-arrow-in-right display-4 text-primary mb-3"></i>
+              <h2 class="fw-bold text-dark">Welcome Back</h2>
+              <p class="text-muted">Sign in to continue to your account</p>
+            </div>
+
+            <% if (error) { %>
+              <div class="alert alert-danger border-0 rounded-3 mb-4" role="alert">
+                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                <%= error %>
+              </div>
+            <% } %>
+
+            <form action="/api/auth/signin" method="post" class="needs-validation" novalidate>
+              <div class="mb-4">
+                <label for="email" class="form-label fw-semibold">
+                  <i class="bi bi-envelope me-2"></i>Email Address
+                </label>
+                <input
+                  type="email"
+                  class="form-control form-control-lg"
+                  name="email"
+                  id="email"
+                  placeholder="Enter your email"
+                  required
+                />
+                <div class="invalid-feedback">
+                  Please provide a valid email address.
+                </div>
+              </div>
+
+              <div class="mb-4">
+                <label for="password" class="form-label fw-semibold">
+                  <i class="bi bi-lock me-2"></i>Password
+                </label>
+                <div class="input-group">
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    name="password"
+                    id="password"
+                    placeholder="Enter your password"
+                    required
+                  />
+                  <button class="btn btn-outline-secondary" type="button" id="togglePassword">
+                    <i class="bi bi-eye" id="toggleIcon"></i>
+                  </button>
+                </div>
+                <div class="invalid-feedback">
+                  Please provide your password.
+                </div>
+              </div>
+
+              <div class="d-grid mb-4">
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <i class="bi bi-box-arrow-in-right me-2"></i>Sign In
+                </button>
+              </div>
+            </form>
+
+            <div class="text-center">
+              <p class="text-muted mb-0">
+                Don't have an account? 
+                <a href="/signup" class="text-primary text-decoration-none fw-semibold">
+                  Sign up here
+                </a>
+              </p>
+            </div>
+          </div>
         </div>
-      <% } %> 
-        <form action="/api/auth/signin" method="post">
-          <div class="mb-3">
-            <label for="email" class="form-label">Email address</label>
-            <input
-              type="email"
-              class="form-control"
-              name="email"
-              id="email"
-              aria-describedby="emailHelp"
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label">Password</label>
-            <input
-              type="password"
-              class="form-control"
-              name="password"
-              id="password"
-            />
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-        <p>Don't have an account? <a href="/signup">Sign up</a></p>
+      </div>
     </div>
+
+    <script>
+      // Form validation
+      (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+          var forms = document.getElementsByClassName('needs-validation');
+          var validation = Array.prototype.filter.call(forms, function(form) {
+            form.addEventListener('submit', function(event) {
+              if (form.checkValidity() === false) {
+                event.preventDefault();
+                event.stopPropagation();
+              }
+              form.classList.add('was-validated');
+            }, false);
+          });
+        }, false);
+      })();
+
+      // Password toggle
+      document.getElementById('togglePassword').addEventListener('click', function() {
+        const password = document.getElementById('password');
+        const toggleIcon = document.getElementById('toggleIcon');
+        
+        if (password.type === 'password') {
+          password.type = 'text';
+          toggleIcon.classList.remove('bi-eye');
+          toggleIcon.classList.add('bi-eye-slash');
+        } else {
+          password.type = 'password';
+          toggleIcon.classList.remove('bi-eye-slash');
+          toggleIcon.classList.add('bi-eye');
+        }
+      });
+    </script>
 
     <%-include('partials/script') %>
   </body>
