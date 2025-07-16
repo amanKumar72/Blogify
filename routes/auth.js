@@ -51,7 +51,7 @@ router.post("/signin", async (req, res) => {
   res.cookie("token", token).redirect("/");
 });
 
-router.post("/logout", (req, res) => {
+router.get("/logout", (req, res) => {
   res.clearCookie("token").redirect("/signin");
 });
 
